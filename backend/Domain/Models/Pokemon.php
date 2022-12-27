@@ -4,11 +4,11 @@ namespace backend\Domain;
 
 class Pokemon
 {
-    public $id;
-    public $name;
-    public $description;
+    public string $id;
+    public string $name;
+    public string $description;
 
-    function __construct($id, $name, $description) {
+    function __construct(string $id, string $name, string $description) {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
