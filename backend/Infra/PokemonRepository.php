@@ -3,6 +3,7 @@
 namespace backend\Infra;
 
 use backend\Domain\Interfaces\IRepository;
+use backend\Domain\Pokemon;
 use backend\Libs\Connection;
 
 class PokemonRepository implements IRepository{
@@ -18,10 +19,10 @@ class PokemonRepository implements IRepository{
 	 */
 	public function getAll() {
 		$sql = "select * from poke.pokemon";
-		$stmt = $pdo->prepare('SELECT id, name FROM users WHERE id=?');
+		//return $sql;
+		$stmt = $pdo->prepare("$sql WHERE id=?");
 		$stmt->execute([$id]);
-		return $stmt->fetchObject(__CLASS__);
-        return 
+		return Pokemon::$stmt->fetchObject();
 	}
 	
 	/**
