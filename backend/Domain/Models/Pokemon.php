@@ -5,8 +5,8 @@ namespace backend\Domain;
 class Pokemon
 {
     public string $id;
-    public string $name;
-    public string $description;
+    private string $name;
+    private string $description;
 
     function __construct(string $id, string $name, string $description) {
         $this->id = $id;
@@ -22,7 +22,15 @@ class Pokemon
         return $this->name;
     }
 
+    public function setName($name){
+        $this->name = ucfirst($name); 
+    }
+    
     function get_description(){
         return $this->description;
+    }
+
+    public function setDescription($description){
+        $this->description = $description;
     }
 }
