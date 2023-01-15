@@ -1,6 +1,6 @@
 <?php 
 
-namespace backend\Domain\Interfaces;
+namespace Domain\Interfaces;
 
 interface IRepository{
     public function getAll();

@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\Libs;
+namespace Libs;
 use PDO;
 use PDOException;
 
@@ -13,7 +13,7 @@ abstract class Connection{
         $username = "root";
         $password = "";
         $dbname = "";
-        
+        echo ("AE");
         if (!isset(self::$instance)) {
             try {
                 self::$instance = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

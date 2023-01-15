@@ -1,10 +1,8 @@
 <?php
 
-namespace backend\Infra;
+namespace Infra;
 
-use backend\Domain\Interfaces\IRepository;
-
-class CoachRepository implements IRepository{
+class CoachRepository{ 
 	/**
 	 * @return mixed
 	 */

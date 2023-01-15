@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\Domain;
+namespace Domain\Models;
 
 class Pokemon
 {

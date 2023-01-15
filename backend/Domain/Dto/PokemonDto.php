@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\Domain\Dto;
+namespace Domain\Dto;
 
 class PokemonDto
 {

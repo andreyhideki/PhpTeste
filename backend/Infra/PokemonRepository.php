@@ -1,14 +1,17 @@
 <?php
 
-namespace backend\Infra;
+namespace Infra;
 
-use backend\Domain\Interfaces\IRepository;
-use backend\Domain\Pokemon;
-use backend\Libs\Connection;
+//use backend\Domain\Interfaces\IRepository;
+//use \Domain\Interfaces;
+//use backend\Domain\Pokemon;
 use Exception;
+use Libs\Connection;
 use PDO;
 
-class PokemonRepository implements IRepository{
+
+//class PokemonRepository implements IRepository{
+class PokemonRepository{
 
 	private $bd;
 	private $query;
@@ -16,8 +19,10 @@ class PokemonRepository implements IRepository{
 	private $pokemonsDto = [];
 
     public function __construct() {
+		echo ("AE1");
         $this->bd = Connection::getInstance();
-    }
+		echo ("AE2");
+	}
 
 	/**
 	 * @return mixed

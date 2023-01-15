@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\Libs;
+namespace Libs;
 
 define("servername", "localhost");
 define("username", "root");

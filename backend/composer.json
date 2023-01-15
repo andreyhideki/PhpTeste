@@ -1,0 +1,14 @@
+{
+  "require": {
+
+  },
+  "autoload": {
+    "psr-4": {
+      "Domain\\Models\\" : "Domain/Models/",
+      "Domain\\Interfaces\\" : "Domain/Interfaces/",
+      "Domain\\Dtos\\" : "Domain/Dto/",
+      "Infra\\" : "Infra/"
+    }
+  }
+
+}
