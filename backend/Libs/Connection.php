@@ -13,7 +13,10 @@ abstract class Connection{
         $username = "root";
         $password = "";
         $dbname = "";
+        
+        echo ("<br/>");
         echo ("AE");
+        echo ("<br/>");
         if (!isset(self::$instance)) {
             try {
                 self::$instance = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

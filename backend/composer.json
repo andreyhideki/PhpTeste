@@ -7,7 +7,10 @@
       "Domain\\Models\\" : "Domain/Models/",
       "Domain\\Interfaces\\" : "Domain/Interfaces/",
       "Domain\\Dtos\\" : "Domain/Dto/",
-      "Infra\\" : "Infra/"
+      "Infra\\" : "Infra/",
+      "Libs\\" : "Libs/",
+      "Services\\" : "Services/"
+      
     }
   }
 
