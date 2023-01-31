@@ -1,6 +1,13 @@
 ## Objetivo PDI
 
-Criar projeto em php CRUD.
+O que o projeto em php deve fazer? 
+
+- CRUD básico
+- Listar (GET)
+- Buscar um registro (GET)
+- Inserir novo registro (POST)
+- Atualizar um registro (PUT)
+- Deletar um registro (DELETE/POST)
 
 ## Tecnologias utilizadas
 

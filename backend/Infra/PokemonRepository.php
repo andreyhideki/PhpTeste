@@ -2,6 +2,7 @@
 
 namespace Infra;
 
+use Domain\Dto\PokemonDto;
 use Domain\Interfaces\IRepository;
 use Exception;
 use Libs\Connection;
@@ -10,54 +11,36 @@ use PDO;
 class PokemonRepository implements IRepository{
 // class PokemonRepository{
 
+	private $pdo;
 	private $bd;
 	private $query;
 	private $queryResult;
 	private $pokemonsDto = [];
 
-    public function __construct() {
+    public function __construct(PDO $driver) {
         $this->bd = Connection::getInstance();
+		$this->pdo = $driver;
 	}
 
 	/**
 	 * @return mixed
 	 */
-	public function getAll() {
+	public function findAll() {
 		$tabela = "poke.pokemon";
-		$sql = "select * from {$tabela}";
+		$sql = $this->pdo->query("select * from {$tabela}");
 
-		//$sql = "SELECT {$fields} FROM {$this->table} {$this->alias} {$joins} {$where} {$group} {$order} {$limit}";
-        try {
-            $this->query = $this->bd->query($sql);
-            $this->queryResult = $this->query->fetchAll();
-        } catch (Exception $e) {
-            echo($e->getMessage());
-        }
-		echo ($this->queryResult);
-		if (!empty($this->queryResult)) {
-			foreach ($this->pokemonsDto as $$this->queryResult) {
-				//$pokemonsDto
+		$array = [];
+		if($sql->rowCount() > 0){
+			$data = $sql->fetchAll();
+
+			foreach($data as $item){
+				$p = new PokemonDto($item['id'],$item['name'],$item['description']);
+
+				$array[] = $p;
 			}
 		}
 
-		// $stmt = $pdo->prepare("$sql WHERE id=?");
-		// $stmt->execute([$id]);
-		// return Pokemon::$stmt->fetchObject();
-
-
-		// $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-		// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-		// $sql = 'SELECT id, name, description FROM poke.pokemon';
-		// //$query = $conn->prepare('SELECT id, name, description	FROM poke.pokemon');
-		// // $query = $conn->prepare($sql,array(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true));
-
-		// foreach ($conn->query($sql) as $row) {
-		// 	echo $row['id'] . "\t";
-		// 	echo $row['name'] . "\t";
-		// 	echo $row['description'] . "\t";
-		// 	echo "<br>";
-		// }
+		return $array;
 	}
 	
 	/**
@@ -65,12 +48,32 @@ class PokemonRepository implements IRepository{
 	 * @param mixed $id
 	 * @return mixed
 	 */
-	public function getById($id) {
-        return "select id from poke.pokemon where id = $id";
+	public function findById($id) {
+		return "select id from poke.pokemon where id = $id";
+	}
+	
+	/**
+	 * @param mixed $entity
+	 * @return mixed
+	 */
+	public function add($entity) {
+		return "insert into poke.pokemon(name, description) values($entity->name,$entity->description)";
 	}
 
-	public function add($pokemon){
-		return "insert into poke.pokemon(name, description) values($pokemon->name,$pokemon->description)";
+	/**
+	 *
+	 * @param mixed $entity
+	 * @return mixed
+	 */
+	public function update($entity) {
 	}
-
+	
+	/**
+	 *
+	 * @param mixed $id
+	 * @return mixed
+	 */
+	public function delete($id) {
+	}
+	
 }

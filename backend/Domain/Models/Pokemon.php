@@ -14,11 +14,11 @@ class Pokemon
         $this->description = $description;
     }
 
-    function get_id() {
+    function getId() {
         return $this->id;
     }
 
-    function get_name() {
+    function getName() {
         return $this->name;
     }
 
@@ -26,7 +26,7 @@ class Pokemon
         $this->name = ucfirst($name); 
     }
     
-    function get_description(){
+    function getDescription(){
         return $this->description;
     }
 
