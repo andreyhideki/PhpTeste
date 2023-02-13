@@ -1,16 +1,29 @@
 <?php
 
-require('../../cconfig.php');
+require('../../config.php');
 
 $method = strtolower($_SERVER['REQUEST_METHOD']);
 $methodDefault = 'post';
 
-if($method === $methodDefault){
+if($method === $methodDefault)
+{
+    $json = file_get_contents('php://input');
+    $data = json_decode($json,true);
 
-    $name = filter_input(INPUT_POST, 'name');
-    $description = filter_input(INPUT_POST, 'description');
+    // var_dump($data);
+    // var_dump($data['name']);
+    // var_dump($data['description']);
+    $name = $data['name'] ?? null;
+    $description = $data['description'] ?? null;
 
-    if($name && $description){
+    // $name = filter_input(INPUT_POST, 'name');
+    // $description = filter_input(INPUT_POST, 'description');
+    
+    // var_dump($name,$description);
+    // die();
+
+    if($name && $description)
+    {
         $sql = $pdo->prepare('INSERT INTO poke.pokemon(name, description) VALUES(:name, :description)');
         $sql->bindValue(':name', $name);
         $sql->bindValue(':description', $description);
@@ -25,13 +38,14 @@ if($method === $methodDefault){
         ];
            
     }
-    else{
+    else
+    {
         $array['error'] = 'Campos obrigatórios!';
     }
 }
-else{
+else
+{
     $array['error'] = 'Método não permitido ('.$methodDefault.')';
 }
 
-
-require('../../creturn.php');
+require('../../return.php');

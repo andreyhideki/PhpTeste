@@ -1,20 +1,23 @@
 <?php
 
-require('../../cconfig.php');
+require('../../config.php');
 
 $method = strtolower($_SERVER['REQUEST_METHOD']);
 $methodDefault = 'get';
 
-if($method === $methodDefault){
+if($method === $methodDefault)
+{
 
     $id = filter_input(INPUT_GET, 'id');
 
-    if($id){
+    if($id)
+    {
         $sql = $pdo->prepare('SELECT * FROM poke.pokemon where id = :id');
         $sql->bindValue(':id', $id);
         $sql->execute();
 
-        if($sql->rowCount() > 0){
+        if($sql->rowCount() > 0)
+        {
             $data = $sql->fetchAll(PDO::FETCH_ASSOC);
 
             foreach($data as $item){
@@ -25,17 +28,20 @@ if($method === $methodDefault){
                 ];
             }
         }
-        else{
+        else
+        {
             $array['error'] = 'Registro não existente!';
         }
     }
-    else{
+    else
+    {
         $array['error'] = 'Código obrigatório!';
     }
 }
-else{
+else
+{
     $array['error'] = 'Método não permitido';
 }
 
 
-require('../../creturn.php');
+require('../../return.php');
