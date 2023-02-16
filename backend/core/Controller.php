@@ -1,7 +1,7 @@
 <?php
 namespace core;
+use src\Config;
 
-use \backend\Config;
 
 class Controller {
 

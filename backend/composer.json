@@ -1,16 +1,11 @@
 {
   "require": {
-
+    "clancats/hydrahon": "^1.1"
   },
   "autoload": {
     "psr-4": {
-      "Domain\\Models\\" : "Domain/Models/",
-      "Domain\\Interfaces\\" : "Domain/Interfaces/",
-      "Domain\\Dtos\\" : "Domain/Dto/",
-      "Infra\\" : "Infra/",
-      "Libs\\" : "Libs/",
-      "Services\\" : "Services/"
-      
+        "core\\": "core/",
+        "src\\": "src/" 
     }
   }
 

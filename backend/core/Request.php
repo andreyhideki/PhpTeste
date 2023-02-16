@@ -1,7 +1,8 @@
 <?php
 namespace core;
 
-use backend\Config;
+use src\Config;
+
 
 class Request {
 

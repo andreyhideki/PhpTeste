@@ -1,7 +1,8 @@
 <?php
 namespace core;
 
-use \backend\Config;
+use core\Request;
+use src\Config;
 
 class RouterBase {
 

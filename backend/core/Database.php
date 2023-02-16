@@ -1,7 +1,7 @@
 <?php
 namespace core;
 
-use \backend\Config;
+use src\Config;
 
 class Database {
     private static $_pdo;
