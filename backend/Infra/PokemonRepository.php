@@ -16,18 +16,19 @@ class PokemonRepository implements IRepository{
 	private $query;
 	private $queryResult;
 	private $pokemonsDto = [];
+	private $tabela;
 
     public function __construct(PDO $driver) {
         $this->bd = Connection::getInstance();
 		$this->pdo = $driver;
+		$this->tabela = "poke.pokemon";
 	}
 
 	/**
 	 * @return mixed
 	 */
 	public function findAll() {
-		$tabela = "poke.pokemon";
-		$sql = $this->pdo->query("select * from {$tabela}");
+		$sql = $this->pdo->query("select * from {$this->tabela}");
 
 		$array = [];
 		if($sql->rowCount() > 0){
@@ -49,7 +50,7 @@ class PokemonRepository implements IRepository{
 	 * @return mixed
 	 */
 	public function findById($id) {
-		return "select id from poke.pokemon where id = $id";
+		return "select id from {$this->tabela} where id = $id";
 	}
 	
 	/**
@@ -57,7 +58,7 @@ class PokemonRepository implements IRepository{
 	 * @return mixed
 	 */
 	public function add($entity) {
-		return "insert into poke.pokemon(name, description) values($entity->name,$entity->description)";
+		return "insert into {$this->tabela}(name, description) values($entity->name,$entity->description)";
 	}
 
 	/**
@@ -66,6 +67,7 @@ class PokemonRepository implements IRepository{
 	 * @return mixed
 	 */
 	public function update($entity) {
+
 	}
 	
 	/**
@@ -74,6 +76,7 @@ class PokemonRepository implements IRepository{
 	 * @return mixed
 	 */
 	public function delete($id) {
+		
 	}
 	
 }
