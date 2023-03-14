@@ -6,6 +6,7 @@ use \core\Controller;
 class HomeController extends Controller {
 
     public function index() {
+        echo("AE");
         $this->render('home', ['nome' => 'Teste']);
     }
 
@@ -17,4 +18,11 @@ class HomeController extends Controller {
         print_r($args);
     }
 
+    public function getAll(){
+        echo("GETALL");
+    }
+
+    public function ping(){
+        echo("PONG");
+    }
 }
