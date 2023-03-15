@@ -3,7 +3,6 @@ namespace core;
 
 use src\Config;
 
-
 class Request {
 
     public static function getUrl() {

@@ -1,17 +1,19 @@
 <?php
+
 namespace src\controllers;
 
-use \core\Controller;
+use core\Controller;
 
 class HomeController extends Controller {
 
     public function index() {
-        echo("AE");
-        $this->render('home', ['nome' => 'Teste']);
+        echo("index");
+        //$this->render('home', ['nome' => 'Teste']);
     }
 
     public function sobre() {
-        $this->render('sobre');
+        // $this->render('sobre');
+        echo("sobre");
     }
 
     public function sobreP($args) {

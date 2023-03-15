@@ -2,7 +2,7 @@
 namespace src;
 
 class Config {
-    const BASE_DIR = '/backend/public';
+    const BASE_DIR = '/PhpTeste/public';
     
     const DB_DRIVER = 'mysql';
     const DB_HOST = 'localhost';
@@ -25,4 +25,3 @@ class Config {
     //     'result' => []
     // ];
 }
- 

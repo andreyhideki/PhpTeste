@@ -1,7 +1,7 @@
 <?php $render('header'); ?>
 
 <container>
-    <?php echo wordwrap(substr($alias['alias_name'],0), 20, "<br />", true); ?>
+<!--    --><?php //echo wordwrap(substr($alias['alias_name'],0), 20, "<br />", true); ?>
     <br>
     <button href="<?=$base;?>/sobre">sobre</button>
     <br>
