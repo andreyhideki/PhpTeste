@@ -174,4 +174,134 @@ class PokeController extends Controller {
         header("Content-Type: application/json");
         echo json_encode($array);
     }
+
+    
+    public function update(){
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "";
+        
+        $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+        $array = [
+            'error' => '',
+            'result' => []
+        ];
+
+        $method = strtolower($_SERVER['REQUEST_METHOD']);
+        $methodDefault = 'put';
+        if($method === $methodDefault)
+        {
+            $data = file_get_contents("php://input");
+            $json = json_decode($data, true);
+
+            $id = $json['id'] ?? null;
+            $name = $json['name'] ?? null;
+            $description = $json['description'] ?? null;
+            
+            //limpa as variaveis padronizando
+            $id = filter_var($id);
+            $name = filter_var($name);
+            $description = filter_var($description);
+
+            if($id && $name && $description) 
+            {
+                $sql = $pdo->prepare("SELECT * FROM poke.pokemon WHERE id = :id");
+                $sql->bindValue(':id', $id);
+                $sql->execute();
+
+                if ($sql->rowCount() > 0) 
+                {
+                    $sql = $pdo->prepare("UPDATE poke.pokemon SET name = :name, description = :description WHERE id = :id");
+                    $sql->bindValue(':id', $id);
+                    $sql->bindValue(':name', $name);
+                    $sql->bindValue(':description', $description);
+                    $sql->execute();
+                    
+                    $array['result'][] = [
+                        'id' => $id,
+                        'name' => $name,
+                        'description' => $description
+                    ];
+                }
+                else
+                {
+                    $array['error'] = 'ID não existe!';    
+                }
+            }
+            else
+            {
+                $array['error'] = 'Dados não preenchidos!';    
+            }
+        }
+        else
+        {
+            $array['error'] = 'Método não permitido('.$methodDefault.')';
+        }
+
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+        header("Content-Type: application/json");
+        echo json_encode($array);
+    }
+
+    public function delete(){
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "";
+        
+        $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+        $array = [
+            'error' => '',
+            'result' => []
+        ];
+
+        $method = strtolower($_SERVER['REQUEST_METHOD']);
+        $methodDefault = 'delete';
+
+        if($method === $methodDefault)
+        {
+            $data = file_get_contents("php://input");
+            $json = json_decode($data, true);
+
+            $id = $json['id'] ?? null;
+
+            //limpa as variaveis padronizando
+            $id = filter_var($id);
+            
+            if($id) 
+            {
+                $sql = $pdo->prepare("SELECT * FROM poke.pokemon WHERE id = :id");
+                $sql->bindValue(':id', $id);
+                $sql->execute();
+
+                if ($sql->rowCount() > 0) 
+                {
+                    $sql = $pdo->prepare("DELETE FROM poke.pokemon WHERE id = :id");
+                    $sql->bindValue(':id', $id);
+                    $sql->execute();
+                }
+                else
+                {
+                    $array['error'] = 'ID não existe!';    
+                }
+            }
+            else
+            {
+                $array['error'] = 'ID não preenchido!';    
+            }
+        }
+        else
+        {
+            $array['error'] = 'Método não permitido('.$methodDefault.')';
+        }
+
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+        header("Content-Type: application/json");
+        echo json_encode($array);
+    }
 }

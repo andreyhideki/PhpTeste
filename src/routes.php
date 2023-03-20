@@ -10,10 +10,8 @@ $router->get('/ping', 'HomeController@ping');
 
 $router->get('/get', 'HomeController@get');
 $router->get('/getall', 'HomeController@getall');
-// $router->put('/update', 'HomeController@update');
-// $router->post('/insert', 'HomeController@insert');
-// $router->delete('/delete', 'HomeController@delete');
 
+//Pokemon
 $router->get('/pokemon/', 'PokeController@index');
 $router->get('/pokemon/get', 'PokeController@get');
 $router->get('/pokemon/getall', 'PokeController@getall');
