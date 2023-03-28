@@ -25,9 +25,6 @@ class PokeController extends Controller {
             'result' => []
         ];
 
-        $method = strtolower($_SERVER['REQUEST_METHOD']);
-        $methodDefault = 'get';
-
         $sql = $pdo->query("SELECT * FROM poke.pokemon");
         if($sql->rowCount() > 0)
         {
@@ -38,9 +35,7 @@ class PokeController extends Controller {
             {
                 array_push($arr,new PokemonDto($item['id'], $item['name'], $item['description']));
             }
-            //var_dump($arr);
-            //var_dump($arr[0]->id);
-            //de();
+            //echo json_encode($arr);
             $array['result'][] = $arr;
         }
         else
@@ -67,38 +62,31 @@ class PokeController extends Controller {
             'result' => []
         ];
 
-        $method = strtolower($_SERVER['REQUEST_METHOD']);
-        $methodDefault = 'get';
-
         $id = filter_input(INPUT_GET, 'id');
 
-        if($id)
+        if(!$id)
         {
-            $sql = $pdo->prepare('SELECT * FROM poke.pokemon where id = :id');
-            $sql->bindValue(':id', $id);
-            $sql->execute();
+            $array['error'] = 'Código obrigatório!';
+            echo json_encode($array);
+            return;
+        }
 
-            if($sql->rowCount() > 0)
-            {
-                $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $sql = $pdo->prepare('SELECT * FROM poke.pokemon where id = :id');
+        $sql->bindValue(':id', $id);
+        $sql->execute();
 
-                foreach($data as $item){
-                    $array['result'][] = [
-                        'id' => $item['id'],
-                        'name' => $item['name'],
-                        'description' => $item['description']
-                    ];
-                }
-            }
-            else
-            {
-                $array['error'] = 'Registro não existente!';
+        if($sql->rowCount() > 0)
+        {
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+            foreach($data as $item){
+                $array['result'][] = new PokemonDto($item['id'], $item['name'], $item['description']);
             }
         }
         else
         {
-            $array['error'] = 'Código obrigatório!';
+            $array['error'] = 'Registro não existente!';
         }
+
 
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
@@ -119,41 +107,25 @@ class PokeController extends Controller {
             'result' => []
         ];
 
-        $method = strtolower($_SERVER['REQUEST_METHOD']);
-        $methodDefault = 'post';
+        $json = file_get_contents('php://input');
+        $data = json_decode($json,true);
 
-        if($method === $methodDefault)
+        $name = $data['name'] ?? null;
+        $description = $data['description'] ?? null;
+
+        if($name && $description)
         {
-            $json = file_get_contents('php://input');
-            $data = json_decode($json,true);
+            $sql = $pdo->prepare('INSERT INTO poke.pokemon(name, description) VALUES(:name, :description)');
+            $sql->bindValue(':name', $name);
+            $sql->bindValue(':description', $description);
+            $sql->execute();
 
-            $name = $data['name'] ?? null;
-            $description = $data['description'] ?? null;
-
-            if($name && $description)
-            {
-                $sql = $pdo->prepare('INSERT INTO poke.pokemon(name, description) VALUES(:name, :description)');
-                $sql->bindValue(':name', $name);
-                $sql->bindValue(':description', $description);
-                $sql->execute();
-
-                $id = $pdo->lastInsertId();
-
-                $array['result'] = [
-                    'id' => $id,
-                    'name' => $name,
-                    'description' => $description
-                ];
-                
-            }
-            else
-            {
-                $array['error'] = 'Campos obrigatórios!';
-            }
+            $id = $pdo->lastInsertId();
+            $array['result'][] = new PokemonDto($id, $name, $description);
         }
         else
         {
-            $array['error'] = 'Método não permitido ('.$methodDefault.')';
+            $array['error'] = 'Campos obrigatórios!';
         }
 
         header("Access-Control-Allow-Origin: *");
@@ -162,7 +134,6 @@ class PokeController extends Controller {
         echo json_encode($array);
     }
 
-    
     public function update(){
         $servername = "localhost";
         $username = "root";
@@ -176,56 +147,44 @@ class PokeController extends Controller {
             'result' => []
         ];
 
-        $method = strtolower($_SERVER['REQUEST_METHOD']);
-        $methodDefault = 'put';
-        if($method === $methodDefault)
+        $data = file_get_contents("php://input");
+        $json = json_decode($data, true);
+
+        $id = $json['id'] ?? null;
+        $name = $json['name'] ?? null;
+        $description = $json['description'] ?? null;
+
+        //limpa as variaveis padronizando
+        $id = filter_var($id);
+        $name = filter_var($name);
+        $description = filter_var($description);
+
+        if($id && $name && $description)
         {
-            $data = file_get_contents("php://input");
-            $json = json_decode($data, true);
+            $sql = $pdo->prepare("SELECT * FROM poke.pokemon WHERE id = :id");
+            $sql->bindValue(':id', $id);
+            $sql->execute();
 
-            $id = $json['id'] ?? null;
-            $name = $json['name'] ?? null;
-            $description = $json['description'] ?? null;
-            
-            //limpa as variaveis padronizando
-            $id = filter_var($id);
-            $name = filter_var($name);
-            $description = filter_var($description);
-
-            if($id && $name && $description) 
+            if ($sql->rowCount() > 0)
             {
-                $sql = $pdo->prepare("SELECT * FROM poke.pokemon WHERE id = :id");
+                $sql = $pdo->prepare("UPDATE poke.pokemon SET name = :name, description = :description WHERE id = :id");
                 $sql->bindValue(':id', $id);
+                $sql->bindValue(':name', $name);
+                $sql->bindValue(':description', $description);
                 $sql->execute();
 
-                if ($sql->rowCount() > 0) 
-                {
-                    $sql = $pdo->prepare("UPDATE poke.pokemon SET name = :name, description = :description WHERE id = :id");
-                    $sql->bindValue(':id', $id);
-                    $sql->bindValue(':name', $name);
-                    $sql->bindValue(':description', $description);
-                    $sql->execute();
-                    
-                    $array['result'][] = [
-                        'id' => $id,
-                        'name' => $name,
-                        'description' => $description
-                    ];
-                }
-                else
-                {
-                    $array['error'] = 'ID não existe!';    
-                }
+                $array['result'][] = new PokemonDto($id, $name, $description);
             }
             else
             {
-                $array['error'] = 'Dados não preenchidos!';    
+                $array['error'] = 'ID não existe!';
             }
         }
         else
         {
-            $array['error'] = 'Método não permitido('.$methodDefault.')';
+            $array['error'] = 'Dados não preenchidos!';
         }
+
 
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
@@ -246,44 +205,34 @@ class PokeController extends Controller {
             'result' => []
         ];
 
-        $method = strtolower($_SERVER['REQUEST_METHOD']);
-        $methodDefault = 'delete';
+        $data = file_get_contents("php://input");
+        $json = json_decode($data, true);
 
-        if($method === $methodDefault)
+        $id = $json['id'] ?? null;
+
+        //limpa as variaveis padronizando
+        $id = filter_var($id);
+
+        if($id)
         {
-            $data = file_get_contents("php://input");
-            $json = json_decode($data, true);
+            $sql = $pdo->prepare("SELECT * FROM poke.pokemon WHERE id = :id");
+            $sql->bindValue(':id', $id);
+            $sql->execute();
 
-            $id = $json['id'] ?? null;
-
-            //limpa as variaveis padronizando
-            $id = filter_var($id);
-            
-            if($id) 
+            if ($sql->rowCount() > 0)
             {
-                $sql = $pdo->prepare("SELECT * FROM poke.pokemon WHERE id = :id");
+                $sql = $pdo->prepare("DELETE FROM poke.pokemon WHERE id = :id");
                 $sql->bindValue(':id', $id);
                 $sql->execute();
-
-                if ($sql->rowCount() > 0) 
-                {
-                    $sql = $pdo->prepare("DELETE FROM poke.pokemon WHERE id = :id");
-                    $sql->bindValue(':id', $id);
-                    $sql->execute();
-                }
-                else
-                {
-                    $array['error'] = 'ID não existe!';    
-                }
             }
             else
             {
-                $array['error'] = 'ID não preenchido!';    
+                $array['error'] = 'ID não existe!';
             }
         }
         else
         {
-            $array['error'] = 'Método não permitido('.$methodDefault.')';
+            $array['error'] = 'ID não preenchido!';
         }
 
         header("Access-Control-Allow-Origin: *");
