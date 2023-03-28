@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\Domain;
+namespace src\Domain\Models;
 
 class Pokedex{
     public $coachId;

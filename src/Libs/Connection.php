@@ -1,6 +1,6 @@
 <?php
 
-namespace Libs;
+namespace src\Libs;
 use PDO;
 use PDOException;
 

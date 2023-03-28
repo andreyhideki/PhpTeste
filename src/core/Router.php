@@ -1,7 +1,5 @@
 <?php
-namespace core;
-
-use \core\RouterBase;
+namespace src\core;
 
 class Router extends RouterBase {
     public $routes;

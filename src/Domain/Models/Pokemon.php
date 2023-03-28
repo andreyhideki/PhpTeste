@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Models;
+namespace src\Domain\Models;
 
 class Pokemon
 {

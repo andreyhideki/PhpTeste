@@ -1,12 +1,12 @@
 <?php
 
-namespace Infra;
+namespace src\Infra;
 
 use Domain\Dto\PokemonDto;
-use Domain\Interfaces\IRepository;
-use Exception;
-use Libs\Connection;
 use PDO;
+use src\core\Util;
+use src\Domain\Interfaces\IRepository;
+use src\Libs\Connection;
 
 class PokemonRepository implements IRepository{
 // class PokemonRepository{
@@ -18,17 +18,35 @@ class PokemonRepository implements IRepository{
 	private $pokemonsDto = [];
 	private $tabela;
 
-    public function __construct(PDO $driver) {
+    //public function __construct(PDO $driver) {
+    public function __construct() {
         $this->bd = Connection::getInstance();
-		$this->pdo = $driver;
+		//$this->pdo = $driver;
 		$this->tabela = "poke.pokemon";
-	}
+
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "";
+
+        $this->pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+    }
 
 	/**
 	 * @return mixed
 	 */
 	public function findAll() {
-		$sql = $this->pdo->query("select * from {$this->tabela}");
+        $sql = $this->pdo->prepare("SELECT * FROM {$this->tabela}");
+        $sql->execute();
+        $objects = $sql->fetchAll(\PDO::FETCH_CLASS);
+        if($sql->rowCount() > 0){
+            $u = new Util();
+            var_dump($u->arrayToObject($objects, "PokemonDto"));
+            die();
+        }
+
+        $sql = $this->pdo->query("select * from {$this->tabela}");
 
 		$array = [];
 		if($sql->rowCount() > 0){

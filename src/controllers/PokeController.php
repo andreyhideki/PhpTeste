@@ -2,14 +2,10 @@
 
 namespace src\controllers;
 
-use core\Controller;
 use PDO;
+use src\core\Controller;
 
 class PokeController extends Controller {
-
-    // private function __construct() { 
-
-    // }
 
     public function index() {
         echo("Pokemon Controller index");
@@ -33,6 +29,25 @@ class PokeController extends Controller {
 
         if($method === $methodDefault)
         {
+////            $repo = new PokemonRepository();
+////            $aa = $repo->findAll();
+//
+//            $sql = $pdo->prepare("SELECT * FROM poke.pokemon");
+//            $sql->execute();
+//            $objects = $sql->fetchAll(\PDO::FETCH_CLASS);
+//
+////            var_dump(Util::arrayToObject($objects, "PokemonDto"));
+////            var_dump(Util::objectToObject($objects, "PokemonDto"));
+////            die();
+//
+//            var_dump("aeee");
+////          $objects = $sql->fetchAll(\PDO::FETCH_CLASS, PokemonDto::class);
+//
+//            foreach ($objects as $object) {
+//                echo $object;
+//            }
+//            die();
+
             $sql = $pdo->query("SELECT * FROM poke.pokemon");
             if($sql->rowCount() > 0)
             {

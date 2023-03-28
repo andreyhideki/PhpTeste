@@ -1,5 +1,5 @@
 <?php
-namespace core;
+namespace src\core;
 
 use src\Config;
 

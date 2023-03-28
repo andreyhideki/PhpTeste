@@ -1,9 +1,8 @@
 <?php
-namespace core;
+namespace src\core;
 
-use \core\Database;
-use \ClanCats\Hydrahon\Builder;
-use \ClanCats\Hydrahon\Query\Sql\FetchableInterface;
+use ClanCats\Hydrahon\Builder;
+use ClanCats\Hydrahon\Query\Sql\FetchableInterface;
 
 class Model {
 

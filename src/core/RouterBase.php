@@ -1,7 +1,7 @@
 <?php
-namespace core;
+namespace src\core;
 
-use \src\Config;
+use src\Config;
 
 class RouterBase {
 

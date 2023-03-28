@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\Domain;
+namespace src\Domain\Models;
 
 class Coach{
     public $name;

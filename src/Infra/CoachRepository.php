@@ -1,6 +1,6 @@
 <?php
 
-namespace Infra;
+namespace src\Infra;
 
 class CoachRepository{ 
 	/**

@@ -2,8 +2,8 @@
 
 namespace src\controllers;
 
-use core\Controller;
 use PDO;
+use src\core\Controller;
 
 class HomeController extends Controller {
 

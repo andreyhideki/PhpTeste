@@ -1,6 +1,6 @@
 <?php 
 
-namespace Domain\Interfaces;
+namespace src\Domain\Interfaces;
 
 interface IRepository{
     public function findAll();

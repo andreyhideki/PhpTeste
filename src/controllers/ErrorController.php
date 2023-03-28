@@ -2,7 +2,7 @@
 
 namespace src\controllers;
 
-use core\Controller;
+use src\core\Controller;
 
 class ErrorController extends Controller {
 
