@@ -4,6 +4,7 @@ namespace src\controllers;
 
 use PDO;
 use src\core\Controller;
+use src\Domain\Dto\PokemonDto;
 
 class PokeController extends Controller {
 
@@ -27,45 +28,24 @@ class PokeController extends Controller {
         $method = strtolower($_SERVER['REQUEST_METHOD']);
         $methodDefault = 'get';
 
-        if($method === $methodDefault)
+        $sql = $pdo->query("SELECT * FROM poke.pokemon");
+        if($sql->rowCount() > 0)
         {
-////            $repo = new PokemonRepository();
-////            $aa = $repo->findAll();
-//
-//            $sql = $pdo->prepare("SELECT * FROM poke.pokemon");
-//            $sql->execute();
-//            $objects = $sql->fetchAll(\PDO::FETCH_CLASS);
-//
-////            var_dump(Util::arrayToObject($objects, "PokemonDto"));
-////            var_dump(Util::objectToObject($objects, "PokemonDto"));
-////            die();
-//
-//            var_dump("aeee");
-////          $objects = $sql->fetchAll(\PDO::FETCH_CLASS, PokemonDto::class);
-//
-//            foreach ($objects as $object) {
-//                echo $object;
-//            }
-//            die();
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-            $sql = $pdo->query("SELECT * FROM poke.pokemon");
-            if($sql->rowCount() > 0)
+            $arr = array();
+            foreach($data as $item)
             {
-                $data = $sql->fetchAll(PDO::FETCH_ASSOC);
-
-                foreach($data as $item)
-                {
-                    $array['result'][] = [
-                        'id' => $item['id'],
-                        'name' => $item['name'],
-                        'description' => $item['description']
-                    ];
-                }
+                array_push($arr,new PokemonDto($item['id'], $item['name'], $item['description']));
             }
+            //var_dump($arr);
+            //var_dump($arr[0]->id);
+            //de();
+            $array['result'][] = $arr;
         }
         else
         {
-            $array['error'] = 'Método não permitido';
+            $array['error'] = 'Nenhum registro encontrado';
         }
 
         header("Access-Control-Allow-Origin: *");
@@ -90,42 +70,34 @@ class PokeController extends Controller {
         $method = strtolower($_SERVER['REQUEST_METHOD']);
         $methodDefault = 'get';
 
-        if($method === $methodDefault)
+        $id = filter_input(INPUT_GET, 'id');
+
+        if($id)
         {
+            $sql = $pdo->prepare('SELECT * FROM poke.pokemon where id = :id');
+            $sql->bindValue(':id', $id);
+            $sql->execute();
 
-            $id = filter_input(INPUT_GET, 'id');
-
-            if($id)
+            if($sql->rowCount() > 0)
             {
-                $sql = $pdo->prepare('SELECT * FROM poke.pokemon where id = :id');
-                $sql->bindValue(':id', $id);
-                $sql->execute();
+                $data = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-                if($sql->rowCount() > 0)
-                {
-                    $data = $sql->fetchAll(PDO::FETCH_ASSOC);
-
-                    foreach($data as $item){
-                        $array['result'][] = [
-                            'id' => $item['id'],
-                            'name' => $item['name'],
-                            'description' => $item['description']
-                        ];
-                    }
-                }
-                else
-                {
-                    $array['error'] = 'Registro não existente!';
+                foreach($data as $item){
+                    $array['result'][] = [
+                        'id' => $item['id'],
+                        'name' => $item['name'],
+                        'description' => $item['description']
+                    ];
                 }
             }
             else
             {
-                $array['error'] = 'Código obrigatório!';
+                $array['error'] = 'Registro não existente!';
             }
         }
         else
         {
-            $array['error'] = 'Método não permitido';
+            $array['error'] = 'Código obrigatório!';
         }
 
         header("Access-Control-Allow-Origin: *");
