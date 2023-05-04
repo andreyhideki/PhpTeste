@@ -1,0 +1,430 @@
+{
+	"info": {
+		"_postman_id": "8753e994-05c1-43b1-9bdf-7974e868b1eb",
+		"name": "PDI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "pdoTestes",
+			"item": [
+				{
+					"name": "getall",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1/edsa-phpTeste/backend/api/pdo/getall.php",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"edsa-phpTeste",
+								"backend",
+								"api",
+								"pdo",
+								"getall.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1/edsa-phpTeste/backend/api/pdo/get.php?id=27e36db7-8483-11ed-9b3e-706979a46fcd",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"edsa-phpTeste",
+								"backend",
+								"api",
+								"pdo",
+								"get.php"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "27e36db7-8483-11ed-9b3e-706979a46fcd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : \"3900d27c-7b6b-11ed-b2f2-706979a46fcd\",\r\n    \"name\": \"Teste2 update\",\r\n    \"description\": \"Teste2 update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1/edsa-phpTeste/backend/api/pdo/update.php",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"edsa-phpTeste",
+								"backend",
+								"api",
+								"pdo",
+								"update.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ping",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1/edsa-phpTeste/backend/api/ping.php",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"edsa-phpTeste",
+								"backend",
+								"api",
+								"ping.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pokemon123\",\r\n    \"description\": \"Pokemon123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1/edsa-phpTeste/backend/api/pdo/insert.php",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"edsa-phpTeste",
+								"backend",
+								"api",
+								"pdo",
+								"insert.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PDI",
+			"item": [
+				{
+					"name": "Pokemon",
+					"item": [
+						{
+							"name": "PokeController/Index",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://pdi/public/pokemon/",
+									"protocol": "http",
+									"host": [
+										"pdi"
+									],
+									"path": [
+										"public",
+										"pokemon",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PokeController/GetAll",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://pdi/public/pokemon/getall",
+									"protocol": "http",
+									"host": [
+										"pdi"
+									],
+									"path": [
+										"public",
+										"pokemon",
+										"getall"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PokeController/Get",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://pdi/public/pokemon/get?id=27e36db7-8483-11ed-9b3e-706979a46fcd",
+									"protocol": "http",
+									"host": [
+										"pdi"
+									],
+									"path": [
+										"public",
+										"pokemon",
+										"get"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "27e36db7-8483-11ed-9b3e-706979a46fcd"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PokeController/insert",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Pokemon Dudu 123\",\r\n    \"description\": \"Pokemon Dudu 123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://pdi/public/pokemon/insert",
+									"protocol": "http",
+									"host": [
+										"pdi"
+									],
+									"path": [
+										"public",
+										"pokemon",
+										"insert"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PokeController/update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : \"3900d27c-7b6b-11ed-b2f2-706979a46fcd\",\r\n    \"name\": \"Teste2 updateee\",\r\n    \"description\": \"Teste2 updateee\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://pdi/public/pokemon/update",
+									"protocol": "http",
+									"host": [
+										"pdi"
+									],
+									"path": [
+										"public",
+										"pokemon",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PokeController/delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : \"bc3fd81b-c670-11ed-882d-0a0027000005\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://pdi/public/pokemon/delete",
+									"protocol": "http",
+									"host": [
+										"pdi"
+									],
+									"path": [
+										"public",
+										"pokemon",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "HomeController/Ping",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pdi/sobre",
+							"protocol": "http",
+							"host": [
+								"pdi"
+							],
+							"path": [
+								"sobre"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HomeController/Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pdi/public/get?id=27e36db7-8483-11ed-9b3e-706979a46fcd",
+							"protocol": "http",
+							"host": [
+								"pdi"
+							],
+							"path": [
+								"public",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "27e36db7-8483-11ed-9b3e-706979a46fcd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HomeController/GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pdi/public/getall",
+							"protocol": "http",
+							"host": [
+								"pdi"
+							],
+							"path": [
+								"public",
+								"getall"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sobre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pdi/sobre",
+							"protocol": "http",
+							"host": [
+								"pdi"
+							],
+							"path": [
+								"sobre"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pdi/sobre",
+							"protocol": "http",
+							"host": [
+								"pdi"
+							],
+							"path": [
+								"sobre"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
