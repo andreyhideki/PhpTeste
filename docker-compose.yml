@@ -10,7 +10,7 @@ services:
       volumes:
           - ./www:/var/www/html
       networks:
-          - default
+          - backend
   db:
       container_name: database
       image: mysql:5.7
@@ -26,11 +26,12 @@ services:
       volumes:
           - db_data:/var/lib/mysql
       networks:
-          - default
+          - backend
 volumes:
   db_data:
     driver: local
 
 networks:
-  default:
+  backend:
+    # Use a custom driver which takes special options
     driver: bridge
