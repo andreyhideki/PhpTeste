@@ -1,11 +1,21 @@
 FROM php:7.4-apache
 
-#EXPOSE 3306
-#EXPOSE 9000
+
 
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-COPY src/ /var/www/html/
+WORKDIR /var/www/html
+
+#COPY . /var/www/html/
+COPY src/ .
+#COPY vendor/ /var/www/html/
+#COPY vendor/ .
+
+#EXPOSE 3306
+EXPOSE 9001
+
+# Comando para iniciar o servidor Apache
+CMD ["apache2-foreground"]
 
 #docker run --name db -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=mydb -d mysql:latest
 

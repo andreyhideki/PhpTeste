@@ -29,3 +29,6 @@ php -S 127.0.0.1:8090
 Sempre verificar se foi adicionado no composer.json para o autoload configurar 
 
 composer install
+
+sempre que adicionar novas classes ou namespace ao projeto rodar o comando abaixo para recriar o autoload
+composer dumpautoload
