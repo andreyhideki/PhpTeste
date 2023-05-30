@@ -12,7 +12,7 @@ COPY src/ .
 #COPY vendor/ .
 
 #EXPOSE 3306
-EXPOSE 9001
+#EXPOSE 9001
 
 # Comando para iniciar o servidor Apache
 CMD ["apache2-foreground"]
@@ -59,3 +59,6 @@ CMD ["apache2-foreground"]
 #para remover volumes e redes não utilizados. Em seguida, reinicie o Docker.
 # docker-compose down -v
 
+#docker compose build --no-cache
+#docker compose UP -d build
+#docker compose build
