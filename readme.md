@@ -1,6 +1,13 @@
 ## Objetivo PDI
 
-Criar projeto em php CRUD.
+O que o projeto em php deve fazer? 
+
+- CRUD básico
+- Listar (GET)
+- Buscar um registro (GET)
+- Inserir novo registro (POST)
+- Atualizar um registro (PUT)
+- Deletar um registro (DELETE/POST)
 
 ## Tecnologias utilizadas
 
@@ -17,4 +24,11 @@ primeiro passo instalar php, configurar variavel de ambiente(path) e verificar s
 ## Comando para rodar o servidor manualmente
 php -S 127.0.0.1:8090
 
-##
+## Comando para adicionar o autoload
+
+Sempre verificar se foi adicionado no composer.json para o autoload configurar 
+
+composer install
+
+sempre que adicionar novas classes ou namespace ao projeto rodar o comando abaixo para recriar o autoload
+composer dumpautoload
