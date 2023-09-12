@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Hora from "@/components/hora";
 import {DadoTable} from "@/components/dadoTable";
 import {dados} from "@/data/dados";
